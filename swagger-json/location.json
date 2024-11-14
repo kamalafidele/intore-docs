@@ -1,0 +1,534 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "OpenApi specification - Intore",
+        "description": "OpenApi documentation for Intore  Location service",
+        "termsOfService": "Terms of service",
+        "contact": {
+            "name": "INTORE",
+            "email": "support@intore.com"
+        },
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8084",
+            "description": "Local ENV"
+        }
+    ],
+    "security": [
+        {
+            "bearerAuth": []
+        }
+    ],
+    "paths": {
+        "/api/locations/create": {
+            "post": {
+                "tags": [
+                    "location-controller"
+                ],
+                "operationId": "createLocation",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AddLocationDTO"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/locations/bulk-create": {
+            "post": {
+                "tags": [
+                    "location-controller"
+                ],
+                "operationId": "bulkCreateLocations",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BulkLocationCreateDTO"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/locations/assignments/unassign": {
+            "post": {
+                "tags": [
+                    "user-location-assignment-controller"
+                ],
+                "operationId": "unassignLocationFromUser",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UnassignLocationDTO"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/locations/assignments/bulk-assign": {
+            "post": {
+                "tags": [
+                    "user-location-assignment-controller"
+                ],
+                "operationId": "bulkAssignLocationsToUser",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BulkAssignLocationDTO"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/locations/assignments/assign": {
+            "post": {
+                "tags": [
+                    "user-location-assignment-controller"
+                ],
+                "operationId": "assignLocationToUser",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AssignLocationDTO"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/locations/{id}": {
+            "get": {
+                "tags": [
+                    "location-controller"
+                ],
+                "operationId": "getLocationById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/locations/fetch": {
+            "get": {
+                "tags": [
+                    "location-controller"
+                ],
+                "operationId": "getLocations",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32",
+                            "default": 0
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32",
+                            "default": 100
+                        }
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "COUNTRY",
+                                "PROVINCE",
+                                "DISTRICT",
+                                "SECTOR",
+                                "CELL",
+                                "VILLAGE"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "parentId",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/locations/assignments/user-locations/{userId}": {
+            "get": {
+                "tags": [
+                    "user-location-assignment-controller"
+                ],
+                "operationId": "getUserLocations",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/locations/assignments/user-locations-min-details/{userId}": {
+            "get": {
+                "tags": [
+                    "user-location-assignment-controller"
+                ],
+                "operationId": "getUserLocationsDetails",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/AssignedLocationMinDetails"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/locations/assignments/fetch-unassigned": {
+            "get": {
+                "tags": [
+                    "user-location-assignment-controller"
+                ],
+                "operationId": "getUnassignedLocations",
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "VILLAGE",
+                            "enum": [
+                                "COUNTRY",
+                                "PROVINCE",
+                                "DISTRICT",
+                                "SECTOR",
+                                "CELL",
+                                "VILLAGE"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "parentId",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "AddLocationDTO": {
+                "required": [
+                    "name",
+                    "type"
+                ],
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "code": {
+                        "type": "string"
+                    },
+                    "parentId": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "COUNTRY",
+                            "PROVINCE",
+                            "DISTRICT",
+                            "SECTOR",
+                            "CELL",
+                            "VILLAGE"
+                        ]
+                    }
+                }
+            },
+            "ApiResponse": {
+                "type": "object",
+                "properties": {
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "message": {
+                        "type": "string"
+                    },
+                    "data": {
+                        "type": "object"
+                    }
+                }
+            },
+            "BulkLocationCreateDTO": {
+                "required": [
+                    "locations"
+                ],
+                "type": "object",
+                "properties": {
+                    "locations": {
+                        "maxItems": 2147483647,
+                        "minItems": 1,
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/AddLocationDTO"
+                        }
+                    }
+                }
+            },
+            "UnassignLocationDTO": {
+                "required": [
+                    "locationId",
+                    "userId"
+                ],
+                "type": "object",
+                "properties": {
+                    "locationId": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "userId": {
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                }
+            },
+            "AssignLocationDTO": {
+                "required": [
+                    "locationId",
+                    "userId"
+                ],
+                "type": "object",
+                "properties": {
+                    "locationId": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "userId": {
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                }
+            },
+            "BulkAssignLocationDTO": {
+                "type": "object",
+                "properties": {
+                    "assignments": {
+                        "maxItems": 2147483647,
+                        "minItems": 1,
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/AssignLocationDTO"
+                        }
+                    }
+                }
+            },
+            "AssignedLocationMinDetails": {
+                "type": "object",
+                "properties": {
+                    "userId": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "locationId": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "COUNTRY",
+                            "PROVINCE",
+                            "DISTRICT",
+                            "SECTOR",
+                            "CELL",
+                            "VILLAGE"
+                        ]
+                    },
+                    "name": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "description": "JWT auth description",
+                "in": "header",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    }
+}

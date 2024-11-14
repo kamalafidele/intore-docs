@@ -1,14 +1,8 @@
-// I want to create a server that listens on port 8082
-// I want to create a route FOUR GET routes: /members/docs, /elections/docs, /locations/docs, /auth/docs
-// Each route will be service an HTML file in public folder that has the similar name
-// In the public folder I have also js and css folders that holds files that are referenced in the HTML files
-// Will those files be served by the server?
-
-
 const express = require('express');
 const path = require('path');
 const app = express();
 const dotenv = require('dotenv');
+
 dotenv.config();
 
 const { PORT } = process.env;
