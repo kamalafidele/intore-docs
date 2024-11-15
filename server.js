@@ -16,7 +16,8 @@ const routes = [
   '/members/docs',
   '/elections/docs',
   '/locations/docs',
-  '/auth/docs'
+  '/auth/docs',
+  '/notifications/docs'
 ];
 
 // Serve HTML files for each route
