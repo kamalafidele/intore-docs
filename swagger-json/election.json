@@ -5,7 +5,7 @@
         "description": "OpenApi documentation for Intore  Election service",
         "termsOfService": "Terms of service",
         "contact": {
-            "name": "INTORE",
+             "name": "INTORE",
             "email": "support@intore.com"
         },
         "version": "1.0"
@@ -167,6 +167,36 @@
                         "application/json": {
                             "schema": {
                                 "$ref": "#/components/schemas/ElectionPositionDTO"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/elections/winners/ussd/add-winner": {
+            "post": {
+                "tags": [
+                    "winner-controller"
+                ],
+                "operationId": "addWinnerUssd",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateWinnerUSSDDTO"
                             }
                         }
                     },
@@ -823,6 +853,32 @@
                     },
                     "description": {
                         "type": "string"
+                    }
+                }
+            },
+            "CreateWinnerUSSDDTO": {
+                "required": [
+                    "electionId",
+                    "locationId",
+                    "phoneNumber",
+                    "positionId"
+                ],
+                "type": "object",
+                "properties": {
+                    "phoneNumber": {
+                        "type": "string"
+                    },
+                    "electionId": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "positionId": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "locationId": {
+                        "type": "string",
+                        "format": "uuid"
                     }
                 }
             },
